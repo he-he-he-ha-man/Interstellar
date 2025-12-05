@@ -23,11 +23,12 @@
 
 /* General images elsewhere on the site: don't force height — keep natural aspect ratio */
 img {
-   max-width: 100%;
-   height: auto;
-   display: block;
+   height: 50px;       /* Or whatever your logo size should be */
+   width: auto;        /* IMPORTANT: keeps aspect ratio */
    padding-top: 5px;
+   object-fit: contain;
 }
+
 
 /* Nav / logo specific: force a sensible max height, keep width auto so aspect ratio stays 1:1 */
 .f-nav #icon-container img,
