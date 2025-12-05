@@ -1,3 +1,5 @@
+/* nav.cc (updated) */
+
 .material-symbols-outlined {
    font-variation-settings:
       "FILL" 0,
@@ -11,13 +13,46 @@
    align-items: center;
 }
 
-/* FIXED LOGO SQUISHING */
+/* ===== REPLACED GLOBAL img RULE =====
+   Previously:
+     img { width:100%; height:100%; padding-top:5px; }
+   That forced every image to stretch to its container and squished 1:1 logos.
+   New rules keep images responsive and preserve aspect ratio, while scoping
+   the nav/logo fixes to the nav area only.
+*/
+
+/* General images elsewhere on the site: don't force height — keep natural aspect ratio */
 img {
-   height: 50px;       /* You can change this number */
-   width: auto;        /* Keeps aspect ratio 1:1 */
+   max-width: 100%;
+   height: auto;
+   display: block;
    padding-top: 5px;
-   object-fit: contain;
 }
+
+/* Nav / logo specific: force a sensible max height, keep width auto so aspect ratio stays 1:1 */
+.f-nav #icon-container img,
+.f-nav .nav-logo img,
+.f-nav .logo-img {
+   height: 50px;           /* change this to whatever visual size you want */
+   max-height: 5vh;        /* responsive cap for small screens */
+   width: auto !important; /* preserve aspect ratio */
+   object-fit: contain;
+   display: block;
+   padding-top: 5px;
+}
+
+/* If the logo is used as a background-image on an element .nav-logo,
+   use the following to prevent squishing:
+*/
+.nav-logo {
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: contain; /* important: don't use 100% 100% */
+   width: 50px;              /* match img height above (optional) */
+   height: 50px;             /* match img height above (optional) */
+}
+
+/* ---- rest of your original file ---- */
 
 .f-nav-container {
    min-width: 5vw;
@@ -117,13 +152,6 @@ img {
       font-size: 3vw;
       transform: translateX(-20%);
    }
-
-   /* FIX FOR MOBILE LOGO */
-   img {
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-   }
 }
 
 .f-nav-right .navbar-link:hover {
@@ -168,5 +196,11 @@ img {
    }
    to {
       transform: rotate(360deg);
+   }
+}
+
+@media (orientation: portrait) {
+   img {
+      height: 40px;
    }
 }
